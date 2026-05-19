@@ -172,7 +172,7 @@ export function FileCard({
                 }}
                 onDragEnd={onDragEnd}
                 whileHover={{ y: -2 }}
-                className={`group flex cursor-pointer flex-col overflow-hidden rounded-lg border bg-telegram-surface transition-all hover:bg-telegram-hover/70
+                className={`group flex cursor-pointer flex-col overflow-hidden rounded-lg border bg-telegram-surface transition-all hover:bg-telegram-hover/70 iso-glass iso-card
                 ${isSelected || highlighted ? 'border-telegram-primary bg-telegram-primary/10 ring-1 ring-telegram-primary' : 'border-transparent hover:border-telegram-border'}
                 ${isDragOver ? 'scale-[1.02] bg-telegram-primary/20 ring-2 ring-telegram-primary' : ''}`}
                 style={cardStyle}

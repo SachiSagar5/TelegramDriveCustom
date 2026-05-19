@@ -50,15 +50,15 @@ export function Sidebar({
 
     return (
         <aside
-            className={`fixed inset-y-0 left-0 z-40 flex w-[84vw] max-w-72 flex-col border-r border-telegram-border bg-telegram-surface shadow-2xl transition-transform duration-200 md:static md:z-auto md:w-64 md:max-w-none md:translate-x-0 md:shadow-none ${mobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
+            className={`fixed inset-y-0 left-0 z-40 flex w-[84vw] max-w-72 flex-col border-r border-telegram-border bg-telegram-surface shadow-2xl transition-transform duration-200 md:static md:z-auto md:w-64 md:max-w-none md:translate-x-0 md:shadow-none ${mobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} iso-glass`}
             onClick={e => e.stopPropagation()}
         >
             <div className="flex items-center gap-2 px-4 pb-4 pt-[calc(1rem+env(safe-area-inset-top))] md:pt-4">
                 <img src={logoSrc} className="h-8 w-8 shrink-0 drop-shadow-lg" alt="Logo" />
-                <span className="min-w-0 flex-1 truncate text-lg font-bold tracking-tight text-telegram-text">Telegram Drive</span>
+                <span className="min-w-0 flex-1 truncate text-lg font-bold tracking-tight text-telegram-text">My Drive (Unlimited)</span>
                 <button
                     type="button"
-                    className="rounded-md p-2 text-telegram-subtext transition hover:bg-telegram-hover hover:text-telegram-text md:hidden"
+                    className="rounded-md p-2 text-telegram-subtext transition hover:bg-telegram-hover hover:text-telegram-text md:hidden iso-card"
                     onClick={onMobileClose}
                     aria-label="Close navigation"
                 >

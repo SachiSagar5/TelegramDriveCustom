@@ -37,6 +37,13 @@ function applyTheme(theme: Theme) {
 // Apply theme immediately on script load (before React hydration)
 if (typeof window !== 'undefined') {
     applyTheme(getInitialTheme());
+    // Auto-apply ISO theme opt-in from localStorage for web preview
+    try {
+        const iso = localStorage.getItem('isoTheme');
+        if (iso === 'true') document.documentElement.classList.add('iso-theme');
+    } catch {
+        // ignore
+    }
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
@@ -45,6 +52,13 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     // Use useLayoutEffect to apply theme synchronously before paint
     useLayoutEffect(() => {
         applyTheme(theme);
+        try {
+            const iso = localStorage.getItem('isoTheme');
+            if (iso === 'true') document.documentElement.classList.add('iso-theme');
+            else document.documentElement.classList.remove('iso-theme');
+        } catch {
+            // ignore
+        }
         localStorage.setItem('theme', theme);
     }, [theme]);
 

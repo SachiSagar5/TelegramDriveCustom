@@ -1,16 +1,21 @@
 @import "tailwindcss";
 
 /* stylelint-disable at-rule-no-unknown */
-/* Dark Theme (Default) - Using Tailwind v4 @theme directive */
+/* Dark Theme (Default) - Liquid Glass style */
 @theme {
-  --color-telegram-bg: #0e1621;
-  --color-telegram-surface: #17212b;
-  --color-telegram-primary: #ffae00;
-  --color-telegram-secondary: #2481cc;
-  --color-telegram-text: #ffffff;
-  --color-telegram-subtext: #8e9fb3;
-  --color-telegram-border: rgba(255, 255, 255, 0.1);
-  --color-telegram-hover: rgba(255, 255, 255, 0.05);
+  --color-telegram-bg: #071016; /* base fallback */
+  --color-telegram-surface: rgba(18, 24, 30, 0.48);
+  --color-telegram-primary: #ffb86b;
+  --color-telegram-secondary: #7ce7ff;
+  --color-telegram-accent-start: #ffb86b;
+  --color-telegram-accent-end: #7ce7ff;
+  --color-telegram-text: #e6eef8;
+  --color-telegram-subtext: #99a6bb;
+  --color-telegram-border: rgba(255, 255, 255, 0.06);
+  --color-telegram-hover: rgba(255, 255, 255, 0.03);
+  --glass-opacity: 0.36;
+  --glass-blur: 20px;
+  --glass-border-glow: rgba(124,58,237,0.08);
 }
 
 /* Light Theme Overrides */
@@ -36,7 +41,12 @@ body,
   overscroll-behavior: none;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
-  background: var(--color-telegram-bg);
+  /* layered animated background for liquid-glass effect */
+  background: radial-gradient(600px circle at 10% 10%, rgba(124,58,237,0.06), transparent 8%),
+              radial-gradient(500px circle at 85% 80%, rgba(56,189,248,0.04), transparent 12%),
+              var(--color-telegram-bg);
+  background-size: 200% 200%;
+  animation: liquidShift 18s linear infinite alternate;
   color: var(--color-telegram-text);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -56,10 +66,26 @@ body,
 
 /* Glassmorphism Utilities - Dark */
 .glass {
-  background: rgba(23, 33, 43, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  background-color: rgba(18,24,30,var(--glass-opacity));
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--color-telegram-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+  position: relative;
+}
+
+/* subtle gradient border glow */
+.glass::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: -1px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, var(--color-telegram-accent-start), var(--color-telegram-accent-end));
+  opacity: 0.06;
+  filter: blur(12px);
 }
 
 :root.light .glass {
@@ -69,10 +95,12 @@ body,
 
 /* Auth-specific glass - works on gradient backgrounds in both themes */
 .auth-glass {
-  background: rgba(23, 33, 43, 0.85);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  background-color: rgba(18,24,30,0.6);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 20px 60px rgba(2,6,23,0.7);
 }
 
 :root.light .auth-glass {
@@ -150,7 +178,7 @@ body,
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(36, 129, 204, 0.6);
+  background: linear-gradient(90deg, var(--color-telegram-accent-start), var(--color-telegram-accent-end));
 }
 
 /* Custom Scrollbar - Light */
@@ -186,6 +214,91 @@ body,
 
 .animate-progress-indeterminate {
   animation: progress-indeterminate 1.5s infinite linear;
+}
+
+@keyframes liquidShift {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 50% 100%; }
+  100% { background-position: 100% 0%; }
+}
+
+/* Neon accent helper for buttons & highlights */
+.neon-accent {
+  box-shadow: 0 6px 24px rgba(124,58,237,0.12), 0 1px 0 rgba(255,255,255,0.02) inset;
+  border: 1px solid rgba(124,58,237,0.14);
+}
+
+.accent-text {
+  background: linear-gradient(90deg, var(--color-telegram-accent-start), var(--color-telegram-accent-end));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ISO Liquid Glass - opt-in utilities and variables */
+:root.iso-theme {
+  --iso-angle: -14deg;
+  --iso-elevation: 20px;
+  --iso-glow: rgba(124,58,237,0.09);
+  --iso-sheen-opacity: 0.16;
+  --iso-sheen-blur: 10px;
+}
+
+.iso-glass {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  background-color: rgba(18,24,30,var(--glass-opacity));
+  backdrop-filter: blur(calc(var(--glass-blur) + 4px));
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 4px));
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 14px;
+  box-shadow: 0 var(--iso-elevation) 50px rgba(2,6,23,0.65), inset 0 1px 0 rgba(255,255,255,0.02);
+  overflow: hidden;
+}
+
+.iso-glass::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  left: -40%;
+  top: -40%;
+  width: 180%;
+  height: 180%;
+  background: linear-gradient(120deg, rgba(255,255,255,var(--iso-sheen-opacity)), rgba(255,255,255,0) 40%);
+  transform: rotate(var(--iso-angle));
+  opacity: calc(var(--iso-sheen-opacity) * 0.9);
+  mix-blend-mode: overlay;
+  filter: blur(var(--iso-sheen-blur));
+  transition: transform 0.45s ease, opacity 0.3s ease;
+}
+
+.iso-glass:hover::before {
+  transform: rotate(calc(var(--iso-angle) + 8deg)) translateY(-6%);
+  opacity: calc(var(--iso-sheen-opacity) * 1.6);
+}
+
+.iso-card {
+  transform-style: preserve-3d;
+  perspective: 900px;
+  transition: transform 320ms cubic-bezier(.2,.9,.2,1), box-shadow 320ms ease;
+}
+.iso-card:hover {
+  transform: translateY(-6px) rotateX(6deg) rotateY(-3deg);
+  box-shadow: 0 34px 90px rgba(2,6,23,0.7), inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+/* Accent borders for ISO theme */
+.iso-accent {
+  border: 1px solid rgba(124,58,237,0.14);
+  box-shadow: 0 10px 40px rgba(124,58,237,0.06);
+}
+
+/* Apply subtle neon outline to primary action when using ISO theme */
+.iso-theme .tool-btn {
+  border-color: rgba(255,255,255,0.04);
+}
+.iso-theme .tool-btn:hover {
+  box-shadow: 0 8px 30px rgba(124,58,237,0.08);
 }
 
 /* Light mode specific overrides for common patterns */

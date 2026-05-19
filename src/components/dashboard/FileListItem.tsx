@@ -61,7 +61,7 @@ export function FileListItem({
                     onDrop(e, file.id);
                 }
             }}
-            className={`group grid grid-cols-[2rem_minmax(0,1fr)_5rem] items-center gap-2 rounded-lg border border-transparent px-3 py-3 cursor-pointer transition-all hover:bg-telegram-hover md:grid-cols-[2rem_2fr_6rem_8rem] md:gap-4 md:px-4 
+            className={`group grid grid-cols-[2rem_minmax(0,1fr)_5rem] items-center gap-2 rounded-lg border border-transparent px-3 py-3 cursor-pointer transition-all hover:bg-telegram-hover iso-glass iso-card md:grid-cols-[2rem_2fr_6rem_8rem] md:gap-4 md:px-4 
                 ${selectedIds.includes(file.id) || highlighted ? 'bg-telegram-primary/10 border-telegram-primary/20' : ''}
                 ${isDragOver ? 'ring-2 ring-telegram-primary bg-telegram-primary/20' : ''}
             `}

@@ -56,7 +56,7 @@ export function SidebarItem({ icon: Icon, label, active = false, onClick, onDrop
                     onDelete();
                 }
             }}
-            className={`group w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${active
+            className={`group w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 iso-glass ${active
                 ? 'bg-telegram-primary/10 text-telegram-primary'
                 : isOver
                     ? 'bg-telegram-primary/30 text-telegram-text ring-2 ring-telegram-primary scale-[1.02] shadow-lg'

@@ -573,6 +573,8 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
         }
     }, [activeFolderId, driveView]);
 
+    
+
 
     useEffect(() => {
         if (searchTerm.length <= 2) {
@@ -1434,7 +1436,7 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
                 />
             )}
 
-            <Sidebar
+                <Sidebar
                 folders={folders}
                 activeFolderId={activeFolderId}
                 setActiveFolderId={(id) => { void handleOpenFolderId(id); }}
@@ -1452,7 +1454,10 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
                 onCreate={handleCreateFolder}
                 isSyncing={isSyncing}
                 isConnected={isConnected}
-                onSync={handleSyncAndStamp}
+                onSync={() => {
+                    void handleSyncAndStamp();
+                    setShowTools(true);
+                }}
                 onLogout={handleLogout}
                 onOpenSettings={() => setShowSettings(true)}
                 bandwidth={bandwidth || null}
